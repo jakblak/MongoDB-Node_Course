@@ -1,5 +1,69 @@
 alt + spacebar - e/p to paste to command
 
+Examples
+{"name" : "Andrew"}    {"a" : 4, "b" : 5, "c" : 7, }
+
+Entry w/ an array:
+{ a:6,
+  b:7,
+  fruit:["apple", "pear", "banana"]}
+}
+
+Nested object:
+{ "product" : "laptop", 
+  "attributes" : {
+	"type" : "mac",
+	"shiny" : true,
+	"expensive" : true
+	}
+}
+
+{ "product" : "laptop", 
+  "attributes" : {
+	"type" : "mac",
+	"shiny" : true,
+	"expensive" : true
+	}
+}
+
+Deeply Nested Structure
+{ "class" : "algebra",
+   "students" : [
+	{
+		"name" : "Susan",
+		"activities" : [
+			{
+				"name" : "soccer",
+				"type" : "sport"
+			},
+			{
+				"name" : "band", 
+				"type" : "music"
+			}
+		]
+	 }
+    ]
+}
+
+Synchronous Example
+var doc = db.coll.findOne();		//Find one document in our collection
+pringjson(doc);				//Print the result
+
+Asynchronous Example
+var MongoClient = require('mongodb').MongoClient;
+MongoClient.connect('mongodb://127.0.0.1:27017/test', function(err, db) {
+	if(err) throw err;
+	//Find one document in our collection
+	db.collection('coll').findOne({}, function(err, doc) {
+		//Print the result
+		console.dir(doc);
+		//Close the DB
+		db.close();
+	});
+	//Declare success
+	console.dir("called findOne!);
+});
+
 
 Write the JSON for a simple document containing a single key "fruit" that has as its value an array containing three strings: "apple", "pear", and "peach"
 A: {fruit:["apple", "pear", "peach"]}
@@ -18,17 +82,7 @@ A: db.users.find({ name : { $regex : "q" }, email : { $exists: true } } );
 
 
 How would you find all documents in the scores collection where the score is less than 50 or greater than 90?
-A: db.scores.find({$or: [{score : {$lt : 50}}, {score : {$gt : 90}}]});
-
-
-Recall the documents in the scores collection:
-{
-	"_id" : ObjectId("50844162cb4cf4564b4694f8"),
-	"student" : 0,
-	"type" : "exam",
-	"score" : 75
-}
-Write a query that retrieves exam documents, sorted by score in descending order, skipping the first 50 and showing only the next 20.
+db.scores.find({$or: [{score : {$lt : 50}}, {score : {$gt : 90}}]});
 
 
 Suppose a simple e-commerce product catalog called catalog with documents that look like this:
@@ -38,22 +92,8 @@ Suppose a simple e-commerce product catalog called catalog with documents that l
               { user : "tom" , comment : "I agree with Fred, somewhat!" , rating : 4 } ],
   ... }
 Write a query that finds all products that cost more than 10,000 and that have a rating of 5 or better.
-A: db.catalog.find( { price : { $gt : 10000 } , "reviews.rating" : { $gte : 5 } } );
+db.catalog.find( { price : { $gt : 10000 } , "reviews.rating" : { $gte : 5 } } );
 
-
-Recall the documents in the scores collection:
-{
-	"_id" : ObjectId("50844162cb4cf4564b4694f8"),
-	"student" : 0,
-	"type" : "exam",
-	"score" : 75
-}
-Write a query that retrieves exam documents, sorted by score in descending order, skipping the first 50 and showing only the next 20.
-A: db.scores.find( { type : "exam" } ).sort( { score : -1 } ).skip(50).limit(20)
-
-
-Calculate where type is 'essay' and score is greater than 90
-db.scores.count({type : 'essay', score : {$gt : 90}});
 
 
 

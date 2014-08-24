@@ -1,0 +1,64 @@
+Examples
+{"name" : "Andrew"}    {"a" : 4, "b" : 5, "c" : 7, }
+
+Entry w/ an array:
+{ a:6,
+  b:7,
+  fruit:["apple", "pear", "banana"]}
+}
+
+Nested object:
+{ "product" : "laptop", 
+  "attributes" : {
+	"type" : "mac",
+	"shiny" : true,
+	"expensive" : true
+	}
+}
+
+{ "product" : "laptop", 
+  "attributes" : {
+	"type" : "mac",
+	"shiny" : true,
+	"expensive" : true
+	}
+}
+
+Deeply Nested Structure
+{ "class" : "algebra",
+   "students" : [
+	{
+		"name" : "Susan",
+		"activities" : [
+			{
+				"name" : "soccer",
+				"type" : "sport"
+			},
+			{
+				"name" : "band", 
+				"type" : "music"
+			}
+		]
+	 }
+    ]
+}
+
+Synchronous Example
+var doc = db.coll.findOne();		//Find one document in our collection
+pringjson(doc);				//Print the result
+
+Asynchronous Example
+var MongoClient = require('mongodb').MongoClient;
+MongoClient.connect('mongodb://127.0.0.1:27017/test', function(err, db) {
+	if(err) throw err;
+	//Find one document in our collection
+	db.collection('coll').findOne({}, function(err, doc) {
+		//Print the result
+		console.dir(doc);
+		//Close the DB
+		db.close();
+	});
+	//Declare success
+	console.dir("called findOne!);
+});
+
