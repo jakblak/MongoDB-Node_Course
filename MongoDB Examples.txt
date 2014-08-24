@@ -1,0 +1,98 @@
+alt + spacebar - e/p to paste to command
+
+Examples
+{"name" : "Andrew"}    {"a" : 4, "b" : 5, "c" : 7, }
+
+Entry w/ an array:
+{ a:6,
+  b:7,
+  fruit:["apple", "pear", "banana"]}
+}
+
+Nested object:
+{ "product" : "laptop", 
+  "attributes" : {
+	"type" : "mac",
+	"shiny" : true,
+	"expensive" : true
+	}
+}
+
+{ "product" : "laptop", 
+  "attributes" : {
+	"type" : "mac",
+	"shiny" : true,
+	"expensive" : true
+	}
+}
+
+Deeply Nested Structure
+{ "class" : "algebra",
+   "students" : [
+	{
+		"name" : "Susan",
+		"activities" : [
+			{
+				"name" : "soccer",
+				"type" : "sport"
+			},
+			{
+				"name" : "band", 
+				"type" : "music"
+			}
+		]
+	 }
+    ]
+}
+
+Synchronous Example
+var doc = db.coll.findOne();		//Find one document in our collection
+pringjson(doc);				//Print the result
+
+Asynchronous Example
+var MongoClient = require('mongodb').MongoClient;
+MongoClient.connect('mongodb://127.0.0.1:27017/test', function(err, db) {
+	if(err) throw err;
+	//Find one document in our collection
+	db.collection('coll').findOne({}, function(err, doc) {
+		//Print the result
+		console.dir(doc);
+		//Close the DB
+		db.close();
+	});
+	//Declare success
+	console.dir("called findOne!);
+});
+
+
+Write the JSON for a simple document containing a single key "fruit" that has as its value an array containing three strings: "apple", "pear", and "peach"
+A: {fruit:["apple", "pear", "peach"]}
+
+
+Write a JSON document with a single key, "address" that has as it value another document with the keys “street_address”, “city”, “state”, “zipcode”, with the following values: “street_address” is "23 Elm Drive", “city” is "Palo Alto", “state” is "California", “zipcode” is "94305"
+A: {'address':{"street_address":"23 Elm Drive","city":"Palo Alto","state":"California","zipcode":"94305"}}
+
+
+Use findOne on the collection users to find one document where the key username is "dwight", and retrieve only the key named email.
+A: db.users.findOne ( { "username" : "dwight" } , { "_id" : false , "email" : true } );
+
+
+Write a query that retrieves documents from a users collection where the name has a "q" in it, and the document has an email field.
+A: db.users.find({ name : { $regex : "q" }, email : { $exists: true } } );
+
+
+How would you find all documents in the scores collection where the score is less than 50 or greater than 90?
+db.scores.find({$or: [{score : {$lt : 50}}, {score : {$gt : 90}}]});
+
+
+
+
+
+
+
+
+
+
+
+
+
