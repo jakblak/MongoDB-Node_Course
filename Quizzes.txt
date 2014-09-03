@@ -82,7 +82,7 @@ A: db.users.find({ name : { $regex : "q" }, email : { $exists: true } } );
 
 
 How would you find all documents in the scores collection where the score is less than 50 or greater than 90?
-db.scores.find({$or: [{score : {$lt : 50}}, {score : {$gt : 90}}]});
+A: db.scores.find({$or: [{score : {$lt : 50}}, {score : {$gt : 90}}]});
 
 
 Suppose a simple e-commerce product catalog called catalog with documents that look like this:
@@ -92,12 +92,33 @@ Suppose a simple e-commerce product catalog called catalog with documents that l
               { user : "tom" , comment : "I agree with Fred, somewhat!" , rating : 4 } ],
   ... }
 Write a query that finds all products that cost more than 10,000 and that have a rating of 5 or better.
-db.catalog.find( { price : { $gt : 10000 } , "reviews.rating" : { $gte : 5 } } );
+A: db.catalog.find( { price : { $gt : 10000 } , "reviews.rating" : { $gte : 5 } } );
 
 
+Recall the schema of the scores collection:
+{
+	"_id" : ObjectId("50844162cb4cf4564b4694f8"),
+	"student" : 0,
+	"type" : "exam",
+	"score" : 75
+}
+Give every document with a score less than 70 an extra 20 points. 
+A: db.scores.update({'score' : {$lt:70}}, {$inc : {score : 20}}, {multi: true})
 
 
-
+Use dot notation to construct a query that selects for a document with a 'name' of 'Steve' in the 'students' array. Put your answer in the box below. Please use double quotes when constructing your answer.
+{
+    'course' : 'M101JS',
+    'students' : [
+        {
+            'name' : 'Susan'
+        },
+        {
+            'name' : 'Steve'
+        }
+    ]
+}
+A: { "students.name" : "Steve" }
 
 
 
