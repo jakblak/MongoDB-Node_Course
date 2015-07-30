@@ -121,6 +121,6 @@ Use dot notation to construct a query that selects for a document with a 'name' 
 A: { "students.name" : "Steve" }
 
 
-
-
+Find and drop the lowest grade
+A: db.collection('homeworks').findAndModify({}, [[ 'grade' , 1 ]], { '$set' : { 'dropped' : true } }, { 'new' : true }, callback);
 
